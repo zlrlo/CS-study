@@ -6,3 +6,4 @@
 
 - 브라우저의 렌더링 동작과정
 - URL(Uniform Resource Locator)
+- HTTP(Hyper Text Transfer Protocol)
