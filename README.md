@@ -5,3 +5,4 @@
 ## 📚 네트워크
 
 - 브라우저의 렌더링 동작과정
+- URL(Uniform Resource Locator)
