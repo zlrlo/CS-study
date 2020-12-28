@@ -11,4 +11,5 @@
 - TCP
 - Three-way handshake
 - UDP
+- 포트포워딩
 
