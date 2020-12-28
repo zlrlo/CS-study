@@ -12,4 +12,5 @@
 - Three-way handshake
 - UDP
 - 포트포워딩
+- DNS 라운드 로빈 방식의 통신 플로우
 
