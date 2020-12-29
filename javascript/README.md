@@ -29,13 +29,36 @@ function run(a) {
 run("hello"); // 실행타임에 a 타입 결정
 
 ```
+### `undefined` 와 `null` 의 차이점
+
+- `undefined` 
+    - 정의되지 않은 것, 초기화 되어 있지 않거나 존재하지 않는
+    - 데이터 타입이자, 값
+- `null`
+    - 아무 값도 갖지않음을 나타낸다.
+    - 주로 객체를 담을 변수를 초기화할 때 많이 사용한다. 
+    - typeof null은 object
+    ```javascript
+    var data1 = 0; //Number 변수 초기화
+    var data2 = ""; // String 변수 초기화
+    var data3 = false; // Boolean 변수 초기화
+    var data4 = null; // Object 변수 초기화
+    ```
+
+- undefined는 변수를 선언만 하더라도 할당되지만 null은 변수를 선언한 후에 null로 값을 바꾼다. 
+- undefined는 미리 선언된 전역변수(전역 객체의 프로퍼티)이며, null은 선언, 등록을 하는 키워드
 
 
 
 
 
 
- 💡 참고 문서: 부스트코스 웹 프로그래밍(풀스택) 강의
+
+
+
+ 💡 참고 자료 
+ - 부스트코스 웹 프로그래밍(풀스택) 강의<br>
+ - https://webclub.tistory.com/1
 
 
 
