@@ -48,6 +48,41 @@ run("hello"); // 실행타임에 a 타입 결정
 - undefined는 변수를 선언만 하더라도 할당되지만 null은 변수를 선언한 후에 null로 값을 바꾼다. 
 - undefined는 미리 선언된 전역변수(전역 객체의 프로퍼티)이며, null은 선언, 등록을 하는 키워드
 
+## 프로토타입
+
+- 자바스크립트는 프로토타입 기반 언어
+- **함수를 정의하면 함수만 생성되는 것이 아니라 Prototype Object도 같이 생성된다.**
+- **어떠한 객체가 만들어지기 위해 그 객체의 모태가 되는 녀석을 프로토타입이라고 한다.** 
+```javascript
+    function Person() {}
+
+    Person.prototype.eyes = 2;
+    Person.prototype.nose = 1;
+
+    var kim  = new Person();
+    var park = new Person():
+
+    console.log(kim.eyes); // => 2
+    ...
+```
+- Person.prototype이라는 빈 Object가 어딘가에 존재하고, Person함수로부터 생성된 객체(kim, park) 들은 어딘가에 존재하는 Object에 들어있는 값을 모두 갖다쓸 수 있다.
+- 객체는 언제나 함수(Function)으로 생성된다.<br> ex) var personObject = new Person(); 
+- Object()는 자바스크립트에서 기본적으로 제공하는 함수이다.<br> ex) var obj = new Object(); 
+- Constructor 자격이 부여되면 `new` 키워드 사용가능 (함수만 new 키워드 사용 가능)
+    - Constructor : function A() -> function A()를 자신의 프로토타입으로 사용하여 만들어졌다.
+- 생성된 함수는 prototype이라는 속성을 통해 Prototype Object에 접근 할 수 있다.<br>
+    - prototype -> Object 객체
+- Prototype Object는 일반적인 객체와 같으며 기본적인 속성으로 `constructor`와 `__proto__`를 가지고 있다. 
+- 모든 객체는 `__proto__` 속성을 가지고 있다. 
+- `__proto__`는 객체가 생성될 때 조상이었던 함수의 Prototype Object를 가리킨다. 
+- 최상위인 Object의 Prototype Object까지 도달했는데도 못찾았을 경우 `undefined` 리턴
+
+
+
+
+
+
+
 
 
 
@@ -59,6 +94,7 @@ run("hello"); // 실행타임에 a 타입 결정
  💡 참고 자료 
  - 부스트코스 웹 프로그래밍(풀스택) 강의<br>
  - https://webclub.tistory.com/1
+ - https://medium.com/@bluesh55/javascript-prototype-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-f8e67c286b67
 
 
 
