@@ -77,6 +77,66 @@ run("hello"); // 실행타임에 a 타입 결정
 - `__proto__`는 객체가 생성될 때 조상이었던 함수의 Prototype Object를 가리킨다. 
 - 최상위인 Object의 Prototype Object까지 도달했는데도 못찾았을 경우 `undefined` 리턴
 
+## 클로저
+
+- 클로저 안에 정의된 함수는 만들어진 환경을 기억한다.
+- (환경을 만들어주고 함수를 반환한다.)
+```javascript
+function getClosure() {
+    var text = 'variable 1';
+    return function() {
+        return text; 
+    }
+}
+
+var closure = getClosure(); 
+console.log(closure()); 
+```
+- 클로저를 통한 은닉화
+```javascript
+function Hello(name) {
+    this._name = name; 
+}
+
+Hello.prototype.say = function() {
+    console.log('Hello, ' + this._name); 
+}
+
+var hello1 = new Hello('지은'); 
+
+hello1.say(); 
+// _name 변수에 외부에서도 쉽게 접근 가능
+hello1._name = 'anonymouse'; 
+hello1.say(); 
+```
+```javascript
+// _name 변수에 접근할 방법이 전혀 없다.
+function hello(name) {
+    var _name = name; 
+    return function() {
+        console.log('Hello, ' + _name); 
+    };
+}
+
+var hello1 = hello('지은'); 
+
+hello1(); 
+```
+- 반복문 클로저
+```javascript
+var i; 
+
+for(i = 0; i < 10; i++) {
+    (function(j) {
+        setTimeout(function() {
+            console.log(j); 
+        }, 100)
+    })(i); 
+}
+
+```
+
+
 
 
 
@@ -95,6 +155,7 @@ run("hello"); // 실행타임에 a 타입 결정
  - 부스트코스 웹 프로그래밍(풀스택) 강의<br>
  - https://webclub.tistory.com/1
  - https://medium.com/@bluesh55/javascript-prototype-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-f8e67c286b67
+ - https://hyunseob.github.io/2016/08/30/javascript-closure/
 
 
 
