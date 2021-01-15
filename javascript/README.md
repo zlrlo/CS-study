@@ -2,13 +2,18 @@
 
 ## 자바스크립트 버전
 
-- 자바스크립트 버전은 ECMAScript(ES)의 버전에 따라서 결정된다.
-- 이를 자바스크립트 실행 엔진이 반영한다. (브라우저마다 자바스크립트 실행 엔진이 있다)
+- **ECMAScript**는 자바스크립트의 핵심 문법(core syntax)을 규정한다.
+- 각 **브라우저** 제조사는 ECMAScript를 준수하여 브라우저에 내장되는 **자바스크립트 엔진**을 구현한다.
+- 즉, 자바스크립트 버전은 ECMAScript(ES)의 버전에 따라서 결정된다. 이를 자바스크립트 실행 엔진이 반영한다. (브라우저마다 자바스크립트 실행 엔진이 있다)
+
+## Node.js
+
+- 브라우저에서만 동작하던 자바스크립트를 **브라우저 이외의 환경**에서 동작시킬 수 있는 자바스크립트 실행 환경(런타임)이다.
 
 ## 연산자 - 비교 연산자
 
 - 비교는 `==` 보다는 `===`를 사용한다.
-- == 으로 인한 다양한 오류 상황이 있다.
+- `==` 으로 인한 다양한 오류 상황이 있다.
 - 암묵적으로 타입을 바꿔서 비교한다.
 
 ```javascript
@@ -17,18 +22,6 @@
 0 == "0"; // true
 null == undefined; // true
 null == false; // false
-```
-
-## 타입
-
-- **타입은 선언할때가 아니고, 실행타임에 결정된다.**
-
-```javascript
-function run(a) {
-  console.log(typeof a);
-}
-
-run("hello"); // 실행타임에 a 타입 결정
 ```
 
 ### `undefined` 와 `null` 의 차이점
@@ -61,37 +54,73 @@ run("hello"); // 실행타임에 a 타입 결정
 ## 프로토타입
 
 - 자바스크립트는 프로토타입 기반 언어
-- **함수를 정의하면 함수만 생성되는 것이 아니라 Prototype Object도 같이 생성된다.**
-- **어떠한 객체가 만들어지기 위해 그 객체의 모태가 되는 녀석을 프로토타입이라고 한다.**
+- **부모 객체를 Prototype(프로토타입)객체 또는 Prototype(프로토타입)이라 한다.**
+- 프로토타입 객체(부모객체)는 생성자 함수에 의해 생성된 각각의 객체에 공유 프로퍼티를 제공하기 위해 사용한다.
+- 자바스크립트의 모든 객체는 `__proto__`를 가진다.
+- `__proto__`는 자신의 부모 객체(프로토타입 객체)를 가리킨다.
 
 ```javascript
-    function Person() {}
+var student = {
+  name: "Lee",
+  score: 99,
+};
 
-    Person.prototype.eyes = 2;
-    Person.prototype.nose = 1;
-
-    var kim  = new Person();
-    var park = new Person():
-
-    console.log(kim.eyes); // => 2
-    ...
+console.log(student.__proto__ === Object.prototype); // true
 ```
 
-- Person.prototype이라는 빈 Object가 어딘가에 존재하고, Person함수로부터 생성된 객체(kim, park) 들은 어딘가에 존재하는 Object에 들어있는 값을 모두 갖다쓸 수 있다.
+- 함수도 객체이므로 `__proto__`를 가진다. 그런데 함수 객체는 일반 객체와는 달리 prototype 프로퍼티(부모 역할을 할 객체)도 소유하게 된다.
+- **즉, 함수를 정의하면 함수만 생성되는 것이 아니라 Prototype Object도 같이 생성된다.**
 - 객체는 언제나 함수(Function)으로 부터 생성된다.<br> ex) `var personObject = new Person();`
-- Object()는 자바스크립트에서 기본적으로 제공하는 함수이다.<br> ex) `var obj = new Object();`
-- 생성된 함수는 prototype이라는 속성을 통해 Prototype Object에 접근 할 수 있다.
-- Prototype Object는 일반적인 객체와 같으며 기본적인 속성으로 `constructor`와 `__proto__`를 가지고 있다.
-- 모든 객체는 `__proto__` 속성을 가지고 있다.
-- `__proto__`는 객체가 생성될 때 조상이었던 함수의 Prototype Object를 가리킨다.
-- 최상위인 Object의 Prototype Object까지 도달했는데도 못찾았을 경우 `undefined` 리턴
+- 프로토타입 객체(부모 객체)는 constructor 프로퍼티를 갖는다.
+- constructor 프로퍼티는 생성자 함수 자체를 가리킨다.
 
-## Object
+```javascript
+function Person(name) {
+  this.name = name;
+}
 
-- 모든 객체의 최종 prototype
-- Object의 `__proto__` 는 null (최종이기 때문)
-- Object 객체의 생성자는 window 객체에 저장되어 있다.
-- 모든 객체가 Object 객체로부터 상속받기 때문에 모든 객체는 Object 객체의 메소드를 사용할 수 있다.
+var foo = new Person("Lee");
+
+console.log(Person.prototype.constructor === Person);
+```
+
+### Pototype chain
+
+- 자바스크립트는 특정 객체의 프로퍼티나 메소드에 접근하려고 할 때 프로퍼티 또는 메소드가 없다면 `__proto__`가 가리키는 링크를 따라 자신의 부모 역할을 하는 프로토탐입 객체의 프로퍼티나 메소드를 차례대로 검색한다.
+- 이것을 프로토타입 체인이라 한다.
+
+#### 객체의 프로토타입 체인
+
+```javascript
+var person = {
+  name: "Lee",
+};
+
+console.log(person.__proto__); // object prototype
+console.log(Object.prototype.constructor === Object); //true
+console.log(Object.__proto__ === Function.prototype); // true
+console.log(Function.prototype.__proto__ === Object.prototype); // true
+```
+
+#### 생성자 함수로 생성된 객체의 프로토타입 체인
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+var foo = new Person("Lee");
+
+console.log(foo.__proto__ === Person.prototype);
+// true
+console.log(Person.prototype.__proto__ === Object.prototype);
+console.log(Person.prototype.constructor === Person);
+console.log(Person.__proto__ === Function.prototype);
+console.log(Function.prototype.__proto__ === Object.prototype);
+```
+
+- 결국은 모든 객체의 부모 객체인 Object.prototype 객체에서 프로토타입 체인이 끝나기 때문에
+- Object.prototype 객체를 프로토타입 체인의 종점이라 한다.
 
 ### Object.create(prototype, 속성)
 
@@ -106,23 +135,37 @@ var obj = {}; // Object.create(Object.prototype); 과 같음
 
 - this는 기본적으로 window 이다.
 - 웹 브라우저에서는 window 객체가 전역 객체이다.
-- 객체 메서드 안에 this는 객체를 가리킨다.<br>
-  (메서드를 호출할 때, this를 내부적으로 바꿔주기 때문)
-- **호출할 때, 호출하는 함수가 객체의 메서드인지 그냥 함수인지가 중요하다.**
+- **자바스크립트의 경우 함수 호출 방식에 의해 this에 바인딩할 어떤 객체가 동적으로 결정된다.**
+
+> 함수의 상위 스코프를 결정하는 방식인 렉시컬 스코프는 함수를 선언할 때 결정된다. this 바인딩과 혼동하지 않도록 주의한다.
+
+### 함수 호출의 종류
+
+#### 1. 함수 호출
+
+- 전역함수는 물론이고 심지어 내부함수의 경우도 this는 전역객체에 바인딩된다.
+- 메소드(객체 내 함수)의 내부 함수일 경우에도 this는 전역객체에 바인딩된다.
 
 ```javascript
-// 주의
-var a2 = obj.a;
-a2(); // window
+var value = 1;
+
+var obj = {
+  value: 100,
+  foo: function () {
+    console.log("foo's this: ", this);
+    function bar() {
+      console.log("bar's this: ", this);
+    }
+    bar();
+  },
+};
+
+obj.foo();
 ```
 
-- 명시적으로 this를 바꿀 수 있다. (bind, call, apply)
-- 생성자 함수에 new를 붙이면 this가 생성자를 통해 생성된 인스턴스가 된다.
-
-```javascript
-var hero = new Person("Hero", 33); // Person {name: "Hero", age: 33}
-hero.sayHi(); // Hero 33
-```
+- 콜백함수의 경우에도 this는 전역객체에 바인딩된다.
+- 내부함수는 일반 함수, 메소드, 콜백함수 어디에서 선언되었든 관계없이 this는 전역객체를 바인딩한다.
+- 더글라스 크락포드는 "이것은 설계 단계의 결함으로 메소드가 내부함수를 사용하여 자신의 작업을 돕게 할 수 없다는 것을 의미한다"라고 말한다.
 
 - 이벤트리스너에서 this
   - 이벤트가 발생할 때, 내부적으로 this가 바뀐다.
@@ -150,6 +193,7 @@ $("div").on("click", function () {
 - 해결 방법
   - that이라는 변수를 만들어서 this를 저장한다.
   - 화살표 함수를 쓴다. (화살표 함수는 상위 함수의 this를 가져온다.)
+  - 이외에도 자바스크립트는 this를 명시적으로 바인딩할 수 있는 apply, call, bind 메소드를 제공한다.
 
 ```javascript
 $("div").on("click", function () {
@@ -170,6 +214,72 @@ $("div").on("click", function () {
   };
   inner();
 });
+```
+
+#### 2. 메소드 호출
+
+- 함수가 객체의 프로퍼티 값이면 메소드로서 호출된다.
+- 이때 메소드 내부의 this는 해당 메소드를 소유한 객체, 즉 해당 메소드를 호출한 객체에 바인딩된다.
+- 프로토타입 객체도 메소드를 가질 수 있다.
+- **프로토타입 객체 메소드 내부에서 사용된 this**도 일반 메소드 방식과 마찬가지로 **해당 메소드를 호출한 객체**에 바인딩된다.
+
+#### 3. 생성자 함수 호출
+
+- 기존 함수에 new 연산자를 붙여서 호출하면 해당 함수는 생성자 함수로 동작한다.
+- 생성자 함수의 코드가 실행되기 전 빈 객체가 생성된다. 이 빈 객체가 생성자 함수가 새로 생성하는 객체이다.
+- 이후 생성자 함수 내에서 사용되는 this는 이 빈 객체를 가리킨다.
+- 그리고 생성된 빈 객체는 생성자 함수의 prototype프로퍼티가 가리키는 객체를 자신의 프로토타입 객체로 설정한다. (빈 객체에 프로토타입 설정)
+- this는 새로 생성된 객체를 가리키므로 this를 통해 생성한 프로퍼티와 메소드를 새로 생성된 객체에 추가된다.
+- 반환문이 없는 경우, this에 바인딩된 새로 생성한 객체가 반환된다.
+- 명시적으로 this를 반환하여도 결과는 같다.
+
+> 객체 리터럴 방식의 경우, 생성된 객체의 프로토타입 객체는 **Object.prototype**이고, 생성자 함수 방식의 경우, 생성된 객체의 프로토타입 객체는 **Person.prototype**이다.
+
+#### 4. apply/call/bind 호출
+
+- this에 바인딩될 객체는 함수 호출 패턴에 의해 결정된다.<br>
+  (1. 함수호출 2. 메소드 호출 3. 생성자 함수 호출)
+- 명시적으로 this를 바꿀 수 있다. (bind, call, apply)
+
+```javascript
+var Person = function (name) {
+  this.name = name;
+};
+
+var foo = {};
+
+// apply 메소드를 생성자 함수 Person을 호출한다.
+// 이때 this에 객체 foo를 바인딩 한다.
+// ['name'] 함수에 전달할 armument의 배열
+Person.apply(foo, ["name"]);
+
+console.log(foo);
+```
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.doSomething = function (callback) {
+  if (typeof callback == "function") {
+    // --------- 1
+    // this Person 객체
+
+    // 해결 방법
+    callback.call(this);
+    callback.bind(this)();
+  }
+};
+
+function foo() {
+  // --------- 2
+  // this 전역 객체
+  console.log(this.name);
+}
+
+var p = new Person("Lee");
+p.doSomething(foo); // undefined
 ```
 
 ## Window 객체
@@ -556,7 +666,40 @@ user.name = "Kim";
 console.log(user); // { name: 'Kim' }
 ```
 
-## computed property name
+## for-in문과 for-of문
+
+- for-in문은 객체의 프로퍼티를 순회하기 위해 사용하고
+- for-of문은 배열의 요소를 순회하기 위해 사용한다.
+
+## 객체
+
+- 객체는 참조 방식으로 전달된다. 결코 복사되지 않는다.
+- foo 객체를 객체 리터럴 방식으로 생성하였다. 이때 변수 foo는 객체 자체를 저장하고 있는 것이 아니라 생성된 객체의 참조값을 저장하고 있다.
+
+```javascript
+var foo = {
+  val: 10,
+};
+```
+
+## immutable vs mutable value
+
+### immutable
+
+- 자바스크립트의 원시타입은 변경 불가능(immutable)한 값이다.
+- 원시 타입 이외의 모든 값은 객체 타입이며, 객체 타입은 변경 가능한(mutable) 값이다.
+
+```javascript
+var str = "Hello";
+str = "world";
+```
+
+- 첫번째 구문이 실행되면 메모리에 문자열 'Hello'가 생성되고 식별자 str은 메모리에 생성도니 문자열 'Hello'의 메모리 주소를 **가리킨다.**
+- 그리고 두번째 구문이 실행되면 이전에 생성된 문자열 'Hello'를 수정하는 것이 아니라 **새로운 문자열 'world'를 메모리에 생성**하고 식별자 str은 이것을 가리킨다.
+- **이때 문자열 'Hello'와 'world'는 메모리에 존재하고 있다.**
+- 변수 str은 문자열 'Hello'를 가리키고 있다가 문자열 'world'를 가리키도록 변경되었을 뿐이다.
+
+![image](https://user-images.githubusercontent.com/68647194/104672791-cb3a4e80-5723-11eb-9ad9-9279324864b3.png)
 
 💡 참고 자료
 
