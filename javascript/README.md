@@ -701,6 +701,105 @@ str = "world";
 
 ![image](https://user-images.githubusercontent.com/68647194/104672791-cb3a4e80-5723-11eb-9ad9-9279324864b3.png)
 
+## 클래스
+
+```javascript
+class Foo {}
+const foo = new Foo();
+```
+
+- Foo는 사실 생성자 함수(constructor)이다.
+- constructor는 생략할 수 있다.
+- constructor는 생략하면 클래스에 constructor() {}를 포함한 것과 동일하게 동작한다.
+- 즉, 빈 객체를 생성한다.
+- 클래스 필드는 언제나 public 이다.
+
+### getter
+
+```javascript
+class Foo {
+  constructor(arr = []) {
+    this._arr = arr;
+  }
+
+  // getter: get 키워드 뒤에 오는 메소드 이름 firstElem은 클래스 필드 이름처럼 사용된다.
+  get firstElem() {
+    // getter는 반드시 무언가를 반환해야 한다.
+    return this._arr.length ? this._arr[0] : null;
+  }
+}
+
+const foo = new Foo([1, 2]);
+```
+
+### setter
+
+```javascript
+class Foo {
+  constructor(arr = []) {
+    this._arr = arr;
+  }
+
+  // getter: get 키워드 뒤에 오는 메소드 이름 firstElem은 클래스 필드 이름처럼 사용된다.
+  get firstElem() {
+    // getter는 반드시 무언가를 반환해야 한다.
+    return this._arr.length ? this._arr[0] : null;
+  }
+
+  set firstElem(elem) {
+    this._arr = [elem, ...this._arr];
+  }
+}
+
+const foo = new Foo([1, 2]);
+
+foo.firstElem = 100;
+
+console.log(foo.firstElem);
+```
+
+### static
+
+- static 메소드는 인스턴스를 생성하지 않아도 되고, this를 사용할 수 없다.
+- static 코드를 ES5 문법으로 표현해서 보면 쉽게 이해할 수 있다.
+
+```javascript
+var Foo = (function () {
+  // 생성자 함수
+  function Foo(prop) {
+    this.prop = prop;
+  }
+
+  Foo.staticMethod = function () {
+    return "staticMethod";
+  };
+
+  Foo.prototype.prototypeMethod = function () {
+    return this.prop;
+  };
+
+  return Foo;
+})();
+
+var foo = new Foo(123);
+console.log(foo.prototypeMethod()); // 123
+console.log(Foo.staticMethod()); // staticMethod
+console.log(foo.staticMethod()); // Uncaught TypeError: foo.staticMethod is not a function
+```
+
+### extends 키워드
+
+- extends 키워드는 부모 클래스를 상속받는 자식 클래스를 정의할 때 사용한다.
+
+```javascript
+class Parent {}
+
+class Child extends Parent {}
+
+console.log(Child.__proto__ === Parent); // true
+console.log(Child.prototype.__proto__ === Parent.prototype); // true
+```
+
 💡 참고 자료
 
 - 부스트코스 웹 프로그래밍(풀스택) 강의<br>
