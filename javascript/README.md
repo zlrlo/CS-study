@@ -800,6 +800,150 @@ console.log(Child.__proto__ === Parent); // true
 console.log(Child.prototype.__proto__ === Parent.prototype); // true
 ```
 
+## Array
+
+- 자바스크립트의 배열은 객체이다.
+- 배열의 길이는 마지막 인덱스를 기준으로 산정된다.
+- 값이 할당되지 않은 인덱스 위치의 요소는 생성되지 않는다는 것에 주의한다.
+  (단, 존재하지 않는 요소를 참조하면 undefined가 반환된다.)
+- 배열 요소를 삭제하기 위해서는 Array.prototype.splice 메소드를 사용한다.
+- 배열의 순회에는 forEach 메소드, for문, for...of 문을 사용한다.
+
+### 고차 함수
+
+- **함수를 인자**로 전달받거나 **함수를 결과**로 반환하는 함수를 말한다.
+- 자바스크립트는 고차 함수를 다수 지원하고 있다.
+- 특히, Array 객체는 매우 유용한 고차 함수를 제공한다.
+
+#### 정렬
+
+- 기본 정렬 순서는 문자열 Unicode 코드 포인트 순서에 따른다.
+- 배열의 요소가 숫자 타입이라 할지라도 배열의 요소를 일시적으로 문자열로 변환한 후, 정렬한다.
+
+```javascript
+const points = [40, 100, 1, 5, 2, 25, 10];
+
+points.sort();
+console.log(points); // [ 1, 10, 100, 2, 25, 40, 5 ]
+```
+
+- 이러한 경우, sort 메소드의 인자로 정렬 순서를 정의하는 비교 함수를 인수로 전달한다.
+
+```javascript
+const points = [40, 100, 1, 5, 2, 25, 10];
+
+points.sort(function (a, b) {
+  // 0보다 작은 경우 a우선
+  return a - b;
+});
+
+console.log(points);
+
+points.sort(function (a, b) {
+  // 0보다 큰 경우 b우선
+  return b - a;
+});
+
+console.log(points);
+```
+
+- 객체를 요소를 갖는 배열을 정렬하는 예제
+
+```javascript
+const todos = [
+  { id: 4, content: "JavaScript" },
+  { id: 1, content: "HTML" },
+  { id: 2, content: "CSS" },
+];
+
+function compare(key) {
+  return function (a, b) {
+    return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0;
+  };
+}
+
+todos.sort(compare("content"));
+
+console.log(todos);
+```
+
+#### forEach
+
+```javascript
+const numbers = [1, 2, 3, 4];
+
+// forEach 메소드는 원본 배열(this)을 변경하지 않는다. 하지만 콜백 함수는 원본 배열(this)을 변경할 수는 있다.
+// 원본 배열을 직접 변경하려면 콜백 함수의 3번째 인자(this)를 사용한다.
+numbers.forEach(function (item, index, self) {
+  self[index] = Math.pow(item, 2);
+});
+
+console.log(numbers); // [ 1, 4, 9, 16 ]
+```
+
+- forEach 두번째 인자로 this를 전달할 수 있다.
+
+```javascript
+function Square() {
+  this.array = [];
+}
+
+Square.prototype.multiply = function (arr) {
+  arr.forEach(function (item) {
+    this.array.push(item * item);
+  }, this); // this를 인수로 전달하지 않으면 this는 window 이다.
+};
+
+const square = new Square();
+square.multiply([1, 2, 3]);
+console.log(square.array);
+```
+
+- myForEach 구현
+
+```javascript
+Array.prototype.myForEach = function (f) {
+  for (let i = 0; i < this.length; i++) {
+    // 배열 요소의 값, 요소 인덱스, forEach 메소드를 호출한 배열, 즉 this를 매개변수에 전달하고 콜백 함수 호출
+    f(this[i], i, this);
+  }
+};
+
+[0, 1, 2, 3].myForEach(function (item, index, array) {
+  console.log(`[${index}]: ${item} of [${array}]`);
+});
+```
+
+#### reduce
+
+![image](https://user-images.githubusercontent.com/68647194/104836393-12c20580-58f1-11eb-9e69-f9bfc6af7bff.png)
+
+```javascript
+const arr = [1, 2, 3, 4, 5];
+
+const sum = arr.reduce(function (pre, cur) {
+  return pre + cur;
+}, 5);
+
+console.log(sum);
+```
+
+- 객체의 프로퍼티 값을 합산하는 경우
+
+```javascript
+const products = [
+  { id: 1, price: 100 },
+  { id: 2, price: 200 },
+  { id: 3, price: 300 },
+];
+
+const sum = products.reduce(function (pre, cur) {
+  return pre + cur.price;
+}, 0);
+
+console.log(sum);
+```
+
 💡 참고 자료
 
 - 부스트코스 웹 프로그래밍(풀스택) 강의<br>
