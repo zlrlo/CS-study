@@ -7,7 +7,7 @@
 
 ## Virtual DOM
 
-- Virtual DOM은 실제 DOM의 구조와 비슷한,` React 객체의 트리`다.
+- Virtual DOM은 실제 DOM의 구조와 비슷한, `React 객체의 트리`다.
 - **개발자는 직접 DOM을 제어하지 않고 Virtual DOM을 제어하고, React에서 적절하게 Virtual DOM을 DOM에 반영하는 작업을 한다.**
 
 ## JSX
@@ -35,31 +35,10 @@ ReactDom.render(
 
 ## React.createElement
 
-- 내부적으로 createElement API를 보면 인자를 받아서 ReactElement로 만들어주는 것을 확인 할 수 있다.
 - ReactElement는 내부적으로 다음 값을 가지는 `Object`이다.
 - 화면에 표시하려는 항목에 대한 설명이라고 생각할 수 있다.
 - 엘리먼트는 React 앱의 가장 작은 단위이다.
 - 리액트에서는 엘리먼트가 모여 컴포넌트라는 구조를 만든다.
-
-```javascript
-const ReactElement = function (type, key, ref, self, source, owner, props) {
-  const element = {
-    // React Element 임을 명시하는 타입
-    $$typeof: REACT_ELEMENT_TYPE,
-
-    // React 엘리먼트의 기본 속성
-    type: type,
-    key: key,
-    ref: ref,
-    props: props,
-
-    // 해당 엘리먼트를 생성하는 Owner를 기록한다.
-    _Owner: owner,
-  };
-
-  return element;
-};
-```
 
 ```javascript
 // 주의: 다음 구조는 단순화되었습니다
@@ -146,6 +125,22 @@ setInterval(tick, 1000);
 ## 비제어 컴포넌트 (Ref 사용)
 
 - 비제어 컴포넌트를 사용할 때 React와 non-React 코드를 통합하는 것이 쉬울 수 있다.
+
+## 리액트 라이프사이클
+
+### class component
+
+![image](https://user-images.githubusercontent.com/68647194/105005671-f94bc580-5a78-11eb-8698-b74d966df54a.png)
+
+### Functional Component (Hook)
+
+- Hook : 함수 컴포넌트에서 React state와 생명주기 기능을 연동할 수 있게 해주는 함수이다.
+- Hook은 state 그 자체가 아니라, 상태 관련 로직을 재사용하는 방법이다.
+- Custom Hook은 기능이라기보다는 컨벤션에 가깝다. 이름이 use로 시작하고, 안에서 다른 Hook을 호출한다면 그 함수를 custom Hook이라고 부를 수 있다.
+- useState()
+  - 현재의 state 값과 이 값을 업데이트하는 함수를 쌍으로 제공한다.
+- useEffect()
+  - React는 매 렌더링 이후에 effects를 실행한다. 리액트는 efftect가 수행되는 시점에 이미 DOM이 업데이트되었음을 보장한다.
 
 💡 참고 자료:
 
