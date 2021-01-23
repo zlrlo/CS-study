@@ -5,7 +5,7 @@
 1. 속성값 뒤에 !important
 2. 태그에 inlin으로 style 속성 지정
 3. 선택자가 #id
-4. 선택자가 .class 및 pseudo 클래스(:hover 같은 것)
+4. 선택자가 .class 및 pseudo(수도) 클래스(:hover 같은 것)
 5. 선택자가 tag 이름
 
 - 스타일에 적용되어진 조합들을 토대로 특정도 값을 계산해서 가장 많은 점수를 받은 것이 우선된다.
@@ -64,7 +64,6 @@
 
 - 태그의 위치를 살짝 변경하고 싶을 때, position: relative를 사용한다.
 - top, left, right, bottom 속성을 사용해 위치 조절이 가능하다.
-  ``
 
 `absolute`
 
@@ -76,9 +75,46 @@
 
 `fixed`
 
+- 부모 요소와 관계없이 브라우저의 viewport를 기준으로 좌표프로퍼티을 사용하여 위치를 이동시킨다.
 - 스크롤을 내려도 그 자리에 계속있다.
 
 > fixed도 absolute 처럼 더는 div가 width: 100%가 아니다.
+
+## z-index
+
+- z-index 프로퍼티에 큰 숫자값을 지정할수록 화면 전면에 출력된다.
+  position 프로퍼티가 **static이외인 요소에만 적용**된다.
+
+## margin, padding
+
+- top -> right -> left -> bottom
+- 4방향의 프로퍼티를 한번에 지정할 수 있다.
+
+## max-width, min-width
+
+- `max-width: 300px;` 의 경우, 브라우저의 너비가 300px 보다 작아지면 요서 너비는 브라우저의 너비에 따라서 작아진다.
+- `min-width: 300px;` 의 경우, 브라우저의 너비가 300px 보다 작아져도 요소 너비는 지정 너비 300px을 유지한다.
+
+## content-box, border-box
+
+- box-sizing 프로퍼티 값을 border-box로 지정하면 마진을 제외한 박스 모델 전체를 width, height 프로퍼티의 대상 영역으로 지정할 수 있어서 CSS Layout을 직관적으로 사용할 수 있게 한다.
+- `content-box` : width, height 프로퍼티 값은 content 영역을 의미한다. (기본값)
+- `border-box` : width, height 프로퍼티 값은 content영역, padding, border가 포함된 값을 의미한다.
+
+## inline 레벨 요소
+
+- content의 너비만큼 가로폭을 차지한다.
+- width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 없다. 상, 하 여백은 line-height로 지정한다. (padding 가능)
+- inline 레벨 요소는 일반적으로 block 레벨 요소에 포함되어 사용한다.
+
+## float
+
+- float 프로퍼티는 주로 레이아웃을 구성할 때 블록 레벨 요소를 가로 정렬하기 위해 사용되는 중요한 기법이다.
+- flexbox 레이아웃을 사용한다면 더욱 간단하게 정렬을 구현할 수도 있지만 flexbox 레이아웃을 지원하지 않는 IE를 고려해야 한다면 float 프로퍼티를 사용해야 한다.
+
+## 상속
+
+- width와 height 프로퍼티를 비롯한 모든 박스모델 관련 프로퍼티(margin, padding, border, box-sizing 등)는 상속되지 않는다.
 
 💡 참고 자료
 
