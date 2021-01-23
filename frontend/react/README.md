@@ -100,27 +100,24 @@ ReactDOM.render(element, document.getElementById("root"));
 - 이를 방지하기 위해 state의 변경사항을 즉시 반영하지 않고, 변경사항을 대기열에 넣어 한꺼번에 적용시킨다.
 - 이 과정에서 setState 호출 후의 state 값이 개발자가 의도하지 않는 값이 될 수도 있다.
 - setState는 이벤트 핸들러 내에서 비동기적으로 동작한다.
-- 즉, 하나의 이벤트 핸들러 내에서 setState가 여러번 호출된다면, **이벤트가 끝난 시점에 state를 일괄적으로 업데이트**하고 렌더링한다.
+- 즉, 하나의 **이벤트 핸들러 내**에서 setState가 여러번 호출된다면, **이벤트가 끝난 시점에 state를 일괄적으로 업데이트**하고 렌더링한다.
+
+- 일괄 처리 예시
+
+```javascritp
+  Object.assign(
+    previousState,
+    {quantity: state.quantity + 1},
+    {quantity: state.quantity + 1},
+    ...
+  )
+```
 
 ## React 작동 방법
 
-```javascript
-function tick() {
-  const element = (
-    <div>
-      <h1>Hello, world!</h1>
-      <h2>It is {new Date().toLocaleTimeString()}.</h2>
-    </div>
-  );
-  ReactDOM.render(element, document.getElementById("root"));
-}
-
-setInterval(tick, 1000);
-```
-
-![image](https://user-images.githubusercontent.com/68647194/104436837-6bcc2980-55d1-11eb-8b14-1238179078f1.png)
-
-> 매초 전체 UI를 다시 그리도록 엘리먼트를 만들었지만 React DOM은 **내용이 변경된 텍스트 노드만 업데이트** 한다.
+- 직접 구현해보기<br>
+  - https://enro2414-40667.medium.com/virtual-dom-%EB%B2%84%EC%B6%94%EC%96%BC-%EB%8F%94-%EA%B0%80%EC%83%81-%EB%8F%94-%EC%9D%84-%EC%A7%81%EC%A0%91-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90-1c44606ea9b1
+  - https://wonism.github.io/deep-dive-into-vdom/
 
 ## 비제어 컴포넌트 (Ref 사용)
 
@@ -140,7 +137,17 @@ setInterval(tick, 1000);
 - useState()
   - 현재의 state 값과 이 값을 업데이트하는 함수를 쌍으로 제공한다.
 - useEffect()
+
   - React는 매 렌더링 이후에 effects를 실행한다. 리액트는 efftect가 수행되는 시점에 이미 DOM이 업데이트되었음을 보장한다.
+
+### Custom Hook
+
+- Hook을 이용하면 생명주기 메서드에 따라서가 아니라 코드가 무엇을 하는지에 따라 나눌 수 있다.
+- 리액트는 컴포넌트에 사용된 모든 effect를 지정된 순서에 맞춰 적용한다.
+
+## 불변성
+
+- 불변성을 지켜주지 않으면 비교 불가능
 
 💡 참고 자료:
 
