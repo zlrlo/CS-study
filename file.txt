@@ -1,5 +1,0 @@
-hello git
-tird - my branch
-fourth - my branch
-some hot fix
-기능 1 추가
