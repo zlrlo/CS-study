@@ -12,6 +12,8 @@
 - LexicalEnvironment
 - ThisBinding
 
+> 실행 컨텍스트를 생성할 때는 VariableEnvironment가 동일한 내용으로 구성되지만 LexicalEnvironment는 함수 실행 도중에 변경되는 사항이 즉시 반영되는 반면 VariableEnvironment는 초기 상태를 유지한다. 
+
 ### VariableEnvironment
 
 ```
