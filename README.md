@@ -26,7 +26,15 @@
 ## 📚 자바스크립트
 
 - 자바스크립트 버전
+- Node.js
 - 연산자 - 비교 연산자
-- 타입
-- 프로토타입
-- 클로저
+- var, let, const 차이점
+- for-in문과 for-of문
+- Array
+- [객체 복사](/Users/jieunlee/Documents/Repositories/CS-study/javascript/object-copy.md)
+- [undefined와 null](/Users/jieunlee/Documents/Repositories/CS-study/javascript/undefined-null.md)
+- [실행 컨텍스트](/Users/jieunlee/Documents/Repositories/CS-study/javascript/execution-context.md)
+- [this](/Users/jieunlee/Documents/Repositories/CS-study/javascript/this.md)
+- [콜백 함수](/Users/jieunlee/Documents/Repositories/CS-study/javascript/callback.md)
+- [클로저](/Users/jieunlee/Documents/Repositories/CS-study/javascript/closure.md)
+
