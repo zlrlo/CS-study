@@ -235,36 +235,6 @@ console.log(user); // { name: 'Kim' }
 - for-in문은 객체의 프로퍼티를 순회하기 위해 사용하고
 - for-of문은 배열의 요소를 순회하기 위해 사용한다.
 
-## 객체
-
-- 객체는 참조 방식으로 전달된다. 결코 복사되지 않는다.
-- foo 객체를 객체 리터럴 방식으로 생성하였다. 이때 변수 foo는 객체 자체를 저장하고 있는 것이 아니라 생성된 객체의 참조값을 저장하고 있다.
-
-```javascript
-var foo = {
-  val: 10,
-};
-```
-
-## immutable vs mutable value
-
-### immutable
-
-- 자바스크립트의 원시타입은 변경 불가능(immutable)한 값이다.
-- 원시 타입 이외의 모든 값은 객체 타입이며, 객체 타입은 변경 가능한(mutable) 값이다.
-
-```javascript
-var str = "Hello";
-str = "world";
-```
-
-- 첫번째 구문이 실행되면 메모리에 문자열 'Hello'가 생성되고 식별자 str은 메모리에 생성도니 문자열 'Hello'의 메모리 주소를 **가리킨다.**
-- 그리고 두번째 구문이 실행되면 이전에 생성된 문자열 'Hello'를 수정하는 것이 아니라 **새로운 문자열 'world'를 메모리에 생성**하고 식별자 str은 이것을 가리킨다.
-- **이때 문자열 'Hello'와 'world'는 메모리에 존재하고 있다.**
-- 변수 str은 문자열 'Hello'를 가리키고 있다가 문자열 'world'를 가리키도록 변경되었을 뿐이다.
-
-![image](https://user-images.githubusercontent.com/68647194/104672791-cb3a4e80-5723-11eb-9ad9-9279324864b3.png)
-
 ## 클래스
 
 ```javascript
