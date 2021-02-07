@@ -31,10 +31,10 @@
 - var, let, const 차이점
 - for-in문과 for-of문
 - Array
-- [객체 복사](/CS-study/javascript/object-copy.md)
-- [undefined와 null](/CS-study/javascript/undefined-null.md)
-- [실행 컨텍스트](/CS-study/javascript/execution-context.md)
-- [this](/CS-study/javascript/this.md)
-- [콜백 함수](/CS-study/javascript/callback.md)
-- [클로저](/CS-study/javascript/closure.md)
+- [객체 복사](/javascript/object-copy.md)
+- [undefined와 null](/javascript/undefined-null.md)
+- [실행 컨텍스트](/javascript/execution-context.md)
+- [this](/javascript/this.md)
+- [콜백 함수](/javascript/callback.md)
+- [클로저](/javascript/closure.md)
 
