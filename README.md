@@ -31,8 +31,8 @@
 - var, let, const 차이점
 - for-in문과 for-of문
 - Array
-- [객체 복사](/javascript/object-copy.md)
-- [undefined와 null](/javascript/undefined-null.md)
+- [얕은 복사와 깊은 복사 이해하기](/javascript/object-copy.md)
+- [undefined와 null 차이점](/javascript/undefined-null.md)
 - [실행 컨텍스트](/javascript/execution-context.md)
 - [this](/javascript/this.md)
 - [콜백 함수](/javascript/callback.md)
