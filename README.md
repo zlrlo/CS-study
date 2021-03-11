@@ -28,7 +28,7 @@
 - 자바스크립트 버전
 - Node.js
 - 연산자 - 비교 연산자
-- var, let, const 차이점
+- [var, let, const 차이점](/javascript/var-let-const.md)
 - for-in문과 for-of문
 - Array
 - [얕은 복사와 깊은 복사 이해하기](/javascript/object-copy.md)
