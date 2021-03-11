@@ -37,4 +37,6 @@
 - [this](/javascript/this.md)
 - [콜백 함수](/javascript/callback.md)
 - [클로저](/javascript/closure.md)
+- [Falsy Values](/javascript/falsy-values.md)
+- [Rest/Spread 프로퍼티](/javascript/rest-spread-property.md)
 
